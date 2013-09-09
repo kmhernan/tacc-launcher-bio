@@ -40,7 +40,23 @@
 4. `VariantAnnotator` - Adds annotations for filtering
     * Input: files.list, rawSNP-Q20.vcf, Reference
     * Output: raw-SNPs-Q20-annotated.vcf
-5. `UnifiedGenotyper` - Now run to call Indels only - *We go from 1 BAM file/Sample to 1 VCF file representing ALL sample*
+5. `UnifiedGenotyper` - Now run to call Indels only - *We go from 1 BAM file/Sample to 1 VCF file representing ALL samples*
     * Input: files.list, Reference
     * Output: inDels-Q20.vcf
-6. 
+6. A. `VariantFiltration` - Filter SNPs around indels, low qual SNPs
+    * Input: raw-SNPs-Q20-annotated.vcf, Reference, inDels-Q20.vcf
+    * Output: Q30-SNP.vcf
+    * Some filters:
+```bash
+java -jar -Xmx10G -Xmx25G -jar GenomeAnalysisTK.jar \
+-T VariantFiltration \
+-R Reference.fa \
+-V raw-SNPS-Q20-annotated.vcf \
+--mask inDels-Q20.vcf \
+--maskExtension 5 \
+--maskName inDel \
+--clusterWindowSize 10 \
+--filterExpression "QUAL < 30.0" \
+--filterName "LowQual" \
+-o Q30-SNP.vcf
+```
