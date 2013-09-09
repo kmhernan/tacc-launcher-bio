@@ -28,4 +28,14 @@
 5. `SamFormatConverter.jar` - Convert to BAM files and create index - `SAMPLEID.bam`
 
 ### Phase IV: GATK Round One
-1. 
+1. `RealignerTargetCreator` - Create target intervals for indel realignment - `_RA.intervals`
+    * Input: SAMPLEID.bam, Reference
+    * Output: SAMPLEID_RA.intervals
+2. `IndelRealigner` - Create realigned BAM files - `_RA.bam`
+    * Input: SAMPLEID.bam, Reference, SAMPLEID_RA.intervals
+    * Output: SAMPLEID_RA.bam
+3. `UnifiedGenotyper` - First run to call SNPs - *We go from 1 BAM file/Sample to 1 VCF files representing ALL samples*
+    * Input: files.list, Reference
+    * Outptut: rawSNP-Q20.vcf
+4. `VariantAnnotator` - Adds annotations for filtering
+    * Input: rawSNP-Q20.vcf, 
