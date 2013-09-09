@@ -1,9 +1,13 @@
-# 2bRAD Pipeline
-## Non-model organisms
+# 2bRAD Pipeline - Non-model organisms
+
+> This is all based on my experience, as there really isn't a consensus on the 'best' methods
 
 ## Necessary tools:
-* [NGSTools.jar](https://github.com/kmhernan/scalaNGS)
-* 
+* [NGSTools](https://github.com/kmhernan/scalaNGS) - Jar included in the tarball `AccesoryScripts.tar.gz`
+* [SHRiMP](http://compbio.cs.toronto.edu/shrimp/) - Mapping - *you can use BWA aln if you wish*
+* [Picard](http://picard.sourceforge.net/) - SAM/BAM files - `module load picard`
+* [samtools](http://samtools.sourceforge.net/) - SAM/BAM files - `module load samtools`
+* [GATK](http://www.broadinstitute.org/gatk/) - Variant calling and more - `module load gatk`
 
 ## Four phases
 
@@ -37,7 +41,7 @@
 
 ### Phase III: Picard/Samtools (preparing alignments for GATK)
 1. `samtools` - Filter out high quality mappings - `_Q20.sam`
-    * `samtools view -Sh -q 20`
+    * `samtools view -Sh -q 20 file.sam > file_Q20.sam`
 2. `SortSam.jar` - Sort SAM files by coordinate - `_sorted.sam`
 3. `AddOrReplaceReadGroups.jar` - Add read groups to files - `_RG.sam`
     * `RGID` - Read group id - *job.lane*
