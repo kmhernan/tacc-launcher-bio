@@ -48,19 +48,19 @@
     * Output: Q30-SNP.vcf
     * Example:
 
-```bash
-java -jar -Xmx10G -Xmx25G -jar GenomeAnalysisTK.jar \
--T VariantFiltration \
--R Reference.fa \
--V raw-SNPS-Q20-annotated.vcf \
---mask inDels-Q20.vcf \
---maskExtension 5 \
---maskName inDel \
---clusterWindowSize 10 \
---filterExpression "QUAL < 30.0" \
---filterName "LowQual" \
--o Q30-SNP.vcf
-```
+    ```bash
+    java -jar -Xmx10G -Xmx25G -jar GenomeAnalysisTK.jar \
+    -T VariantFiltration \
+    -R Reference.fa \
+    -V raw-SNPS-Q20-annotated.vcf \
+    --mask inDels-Q20.vcf \
+    --maskExtension 5 \
+    --maskName inDel \
+    --clusterWindowSize 10 \
+    --filterExpression "QUAL < 30.0" \
+    --filterName "LowQual" \
+    -o Q30-SNP.vcf
+    ```
 
 7. Parse passing SNPs to VCF file
     * Input: Q30-SNP.vcf
