@@ -82,6 +82,7 @@
     * Input: recal-bam-file.list, Reference
     * Output: final-GT-Q20.vcf
     * Example:
+
     ```bash
     java -Xmx10G -Xmx29G -jar GenomeAnalysisTK.jar \
     -T UnifiedGenotyper \
