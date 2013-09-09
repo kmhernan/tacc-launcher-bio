@@ -25,7 +25,7 @@
     -O /path/to/filtered/file.fastq \
     -QV-OFFSET 33 \
     -START 1 -END 36 \
-    -MINQ 20 -HPOLY 0.20`
+    -MINQ 20 -HPOLY 0.20
     ```
 
 ### Phase II: Mapping
