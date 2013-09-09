@@ -21,10 +21,11 @@ if [ -e $PARAM ]; then rm $PARAM; fi
 touch $PARAM
 
 for dir in ${INDIR}*; do
+    JOB=$(basename $dir)
     for fil in ${dir}/*; do
         BASE=$(basename $fil)
 	NAME=${BASE%.fastq}
-	OFIL="${ODIR}${NAME}.sam"
+	OFIL="${ODIR}${JOB}_${NAME}.sam"
 	echo "$SCRIPT -o 5 -N 4 -Q --qv-offset 33 -L $REF $fil > $OFIL" >> $PARAM
     done
 done
