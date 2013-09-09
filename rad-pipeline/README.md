@@ -47,6 +47,7 @@
     * Input: raw-SNPs-Q20-annotated.vcf, Reference, inDels-Q20.vcf
     * Output: Q30-SNP.vcf
     * Some filters:
+
 ```bash
 java -jar -Xmx10G -Xmx25G -jar GenomeAnalysisTK.jar \
 -T VariantFiltration \
