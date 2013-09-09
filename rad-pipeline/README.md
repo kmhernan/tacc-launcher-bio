@@ -78,4 +78,18 @@
 2. `PrintReads` - Print new BAM file with recalibrated base qualities - `SAMPLEID_recal.bam`
     * Input: SAMPLEID_RA.bam, Reference, SAMPLEID_recal.grp
     * Output: SAMPLEID_recal.bam
-3. 
+3. `UnifiedGenotyper` - Final run of genotyper, usually call both indel and snps - *We go from 1 recalibrated BAM/sample to one VCF file containing all samples*
+    * Input: recal-bam-file.list, Reference
+    * Output: final-GT-Q20.vcf
+    * Example:
+    ```bash
+    java -Xmx10G -Xmx29G -jar GenomeAnalysisTK.jar \
+    -T UnifiedGenotyper \
+    -nct 4 -nt 4 \
+    -I recal-bam-file.list \
+    -stand_call_conf 20.0 \
+    -stand_emit_conf 20.0 \
+    -glm BOTH -gt_mode DISCOVERY \
+    -R Reference.fa \
+    -o final-GT-Q20.vcf
+    ```
