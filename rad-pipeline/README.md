@@ -34,8 +34,13 @@
 2. `IndelRealigner` - Create realigned BAM files - `_RA.bam`
     * Input: SAMPLEID.bam, Reference, SAMPLEID_RA.intervals
     * Output: SAMPLEID_RA.bam
-3. `UnifiedGenotyper` - First run to call SNPs - *We go from 1 BAM file/Sample to 1 VCF files representing ALL samples*
+3. `UnifiedGenotyper` - First run to call SNPs - *We go from 1 BAM file/Sample to 1 VCF file representing ALL samples*
     * Input: files.list, Reference
-    * Outptut: rawSNP-Q20.vcf
+    * Output: raw-SNPs-Q20.vcf
 4. `VariantAnnotator` - Adds annotations for filtering
-    * Input: rawSNP-Q20.vcf, 
+    * Input: files.list, rawSNP-Q20.vcf, Reference
+    * Output: raw-SNPs-Q20-annotated.vcf
+5. `UnifiedGenotyper` - Now run to call Indels only - *We go from 1 BAM file/Sample to 1 VCF file representing ALL sample*
+    * Input: files.list, Reference
+    * Output: inDels-Q20.vcf
+6. 
