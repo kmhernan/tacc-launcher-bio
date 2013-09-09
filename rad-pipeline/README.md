@@ -13,8 +13,9 @@
 
 ### Phase III: Picard/Samtools (preparing alignments for GATK)
 1. `samtools` - Filter out high quality mappings - `_Q20.sam`
-2. `SortSam` - Sort SAM files by coordinate - `_sorted.sam`
-3. `AddOrReplaceReadGroups` - Add read groups to files - `_RG.sam`
+    * `samtools view -Sh -q 20`
+2. `SortSam.jar` - Sort SAM files by coordinate - `_sorted.sam`
+3. `AddOrReplaceReadGroups.jar` - Add read groups to files - `_RG.sam`
     * `RGID` - Read group id - *job.lane*
     * `RGLB` - Library id - If none, *"Lib-1"*
     * `RGPL` - Platform - *illumina*
@@ -23,4 +24,8 @@
     * `RGCN` - not required - Sequencing center - *UTGASF*
     * `RGDS` - not required - Description
     * `RGDT` - not required - Sequencing Data - format: `YYYY-MM-DDT00:00:00`
+4. `MergeSamFiles.jar` - Merge sam files of a sample together (if necessary) - `SAMPLEID.sam`
+5. `SamFormatConverter.jar` - Convert to BAM files and create index - `SAMPLEID.bam`
 
+### Phase IV: GATK Round One
+1. 
