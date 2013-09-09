@@ -5,8 +5,28 @@
 
 ### Phase I: Quality Control
 1. `NGSTools.jar` - Look at base composition and quality distribution
+
+    ```bash
+    java -Xms1G -Xmx2G -jar NGSTools.jar \
+    -T ReadStatistics \
+    -I file.fastq \
+    -O file.tab \
+    -QV-OFFSET 33
+    ```
+    
 2. `NGSTools.jar` - Trim and filter
-    * Alf example: `java -Xms1G -Xmx2G -jar NGSTools.jar -T ReadStatistics -P SE_illumina -QV-OFFSET 33 -START 1 -END 36 -MINQ 20 -HPOLY 0.20`
+    * Alf example: 
+
+    ```bash
+    java -Xms1G -Xmx2G -jar NGSTools.jar \
+    -T FilterReads \
+    -P SE_illumina \
+    -I file.fastq \
+    -O /path/to/filtered/file.fastq \
+    -QV-OFFSET 33 \
+    -START 1 -END 36 \
+    -MINQ 20 -HPOLY 0.20`
+    ```
 
 ### Phase II: Mapping
 1. SHRiMP - Take your reference [preferable indexed] and your filtered/trimmed fastq files. Output is SAM.
