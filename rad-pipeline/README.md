@@ -43,10 +43,10 @@
 5. `UnifiedGenotyper` - Now run to call Indels only - *We go from 1 BAM file/Sample to 1 VCF file representing ALL samples*
     * Input: files.list, Reference
     * Output: inDels-Q20.vcf
-6. A. `VariantFiltration` - Filter SNPs around indels, low qual SNPs
+6. `VariantFiltration` - Filter SNPs around indels, low qual SNPs
     * Input: raw-SNPs-Q20-annotated.vcf, Reference, inDels-Q20.vcf
     * Output: Q30-SNP.vcf
-    * Some filters:
+    * Example:
 
 ```bash
 java -jar -Xmx10G -Xmx25G -jar GenomeAnalysisTK.jar \
@@ -61,3 +61,10 @@ java -jar -Xmx10G -Xmx25G -jar GenomeAnalysisTK.jar \
 --filterName "LowQual" \
 -o Q30-SNP.vcf
 ```
+
+7. Parse passing SNPs to VCF file
+    * Input: Q30-SNP.vcf
+    * Output: only-PASS-Q30-SNPS.vcf
+    * Command: `cat Q30-SNP.vcf | grep 'PASS\|#' > only-PASS-Q30-SNPS.vcf`
+8. `GetHighQualVcf.py` - Now we pull out the SNPs in the top 95th percentile, split into INDIVIDUAL (e.g., by sample) VCFs - `SAMPLEID_HQ.vcf`
+9. 
