@@ -1,6 +1,10 @@
 # 2bRAD Pipeline
 ## Non-model organisms
 
+## Necessary tools:
+* [NGSTools.jar](https://github.com/kmhernan/scalaNGS)
+* 
+
 ## Four phases
 
 ### Phase I: Quality Control
