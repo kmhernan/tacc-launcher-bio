@@ -67,4 +67,15 @@
     * Output: only-PASS-Q30-SNPS.vcf
     * Command: `cat Q30-SNP.vcf | grep 'PASS\|#' > only-PASS-Q30-SNPS.vcf`
 8. `GetHighQualVcf.py` - Now we pull out the SNPs in the top 95th percentile, split into INDIVIDUAL (e.g., by sample) VCFs - `SAMPLEID_HQ.vcf`
-9. 
+    * Input: only-PASS-Q30-SNPS.vcf
+    * Output: SAMPLEID_HQ.vcf
+    * Command: `GetHighQualVcf.py -i only-PASS-Q30-SNPS.vcf -o /path/to/hq-snps/`
+
+### Phase IV: GATK Round Two
+1. `BaseRecalibrator` - create recalibrator groups for each SAMPLE - `SAMPLEID_recal.grp`
+    * Input: SAMPLEID_RA.bam, Reference, SAMPLEID_HQ.bam
+    * Output: SAMPLEID_recal.grp
+2. `PrintReads` - Print new BAM file with recalibrated base qualities - `SAMPLEID_recal.bam`
+    * Input: SAMPLEID_RA.bam, Reference, SAMPLEID_recal.grp
+    * Output: SAMPLEID_recal.bam
+3. 
