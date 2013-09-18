@@ -15,6 +15,7 @@ PASS="" # Path to only-PASS-Q30-SNPS.vcf
 REF="" # Path to ref
 LOGS="snp-filter.logs"
 
+# This will mask SNPs around indels and go ahead and remove SNPs < 30
 java -Xms10G -Xmx25G -jar $SCRIPT \
 -T VariantFiltration \
 -R $REF \
