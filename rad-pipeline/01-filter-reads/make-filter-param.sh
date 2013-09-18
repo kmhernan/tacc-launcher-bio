@@ -28,15 +28,11 @@ touch $CMD
 for dir in ${DIRS}*; do
     # Since we have named the directory the JOB ID
     # we extract it like so
-    CURR=$(basename $dir)
-
-    # We now can create the output path for the filtered reads
-    # by concatenating $ODIR and $CURR, but we also need to automate the creation of this directory
-    OP="${ODIR}${CURR}/"
-    if [ ! -d $OP ]; then mkdir $OP; fi
+    JOB=$(basename $dir)
 
     # Now we loop through each fastq file in the current 
-    # Job directory
+    # Job directory. Note that ${dir} here is coming from
+    # the dir in the for loop above
     for fil in ${dir}/*; do
         BASE=$(basename $fil)   	 # file name without the path
         NAME=${BASE%.fastq.gz*} 	 # file name without .fastq.gz
