@@ -8,6 +8,7 @@
 * [Picard](http://picard.sourceforge.net/) - SAM/BAM files - `module load picard`
 * [samtools](http://samtools.sourceforge.net/) - SAM/BAM files - `module load samtools`
 * [GATK](http://www.broadinstitute.org/gatk/) - Variant calling and more - `module load gatk`
+* [TagSeqTools](https://github.com/kmhernan/tag-seq-tools) - Counting tags and other tools
 
 ## Four phases
 
@@ -25,6 +26,7 @@
 2. `NGSTools.jar` - Trim and filter - *If you are going to use BWA mem you must keep read lengths > 70*
 
     ```bash
+    # Without 
     java -Xms1G -Xmx2G -jar NGSTools.jar \
     -T FilterReads \
     -P SE_illumina \
