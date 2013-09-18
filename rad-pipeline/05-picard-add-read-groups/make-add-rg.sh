@@ -34,8 +34,6 @@ for fil in ${INDIR}*_sorted.sam; do
   # The SAMPLEID, which should be the 2nd index
   SAMP=`echo $NAME | awk -F"_" '{print $2}'`
   # The BARCODE, which the GSAF should add after the sample ID.
-  # If not, you can look at the head of the first line like
-  # BAR=`head -n1 $fil | awk -F":" '{print $NF}'`
   BAR=`echo $NAME | awk -F"_" '{print $3}'`
   # The LANE, which the GSAF should add after the BAR
   LANE=`echo $NAME | awk -F"_" '{print $4}'`
