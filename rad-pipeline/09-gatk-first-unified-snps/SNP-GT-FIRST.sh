@@ -24,6 +24,11 @@ for fil in ${INDIR}*.bam; do
 done
 
 # Now run GATK for SNPs only
+# The stand_call_conf is the min quality score that GATK will use to call a SNP,
+# while the stand_emit_conf is the min quality score that GATK will use to OUTPUT a SNP into the VCF.
+# So, call_conf is <= emit_conf . You can add more flags to have GATK output all called SNPs (> call_conf), but 
+# will mark SNPs with qual > emit_conf as 'PASS' filter. 
+# see http://www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_sting_gatk_walkers_genotyper_UnifiedGenotyper.html
 java -Xms10G -Xmx25G -jar $SCRIPT -T UnifiedGenotyper \
 -nct 4 -nt 4 \
 -I $FILES \
