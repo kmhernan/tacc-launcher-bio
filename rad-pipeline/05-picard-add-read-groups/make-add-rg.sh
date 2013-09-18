@@ -25,6 +25,10 @@ for fil in ${INDIR}*_sorted.sam; do
   NAME=${BASE%.*}
   OUT="${ODIR}${NAME}_RG.sam"
   LOG="${LOG}${NAME}.log"
+  # If your filenames contain all the information but are in different orders,
+  # you can simply change the values of the '{print $#}' to whatever index after the 
+  # split (-F"_" splits on '_'), but remember awk is 1-based index.
+  #
   # The GSAF JOB ID we appended to the front
   JOB=`echo $NAME | awk -F"_" '{print $1}'`
   # The SAMPLEID, which should be the 2nd index
@@ -35,9 +39,14 @@ for fil in ${INDIR}*_sorted.sam; do
   BAR=`echo $NAME | awk -F"_" '{print $3}'`
   # The LANE, which the GSAF should add after the BAR
   LANE=`echo $NAME | awk -F"_" '{print $4}'`
+  # Now you simply add in the variables to the picard command.
   echo -n "java -Xms1G -Xmx2G -jar $SCRIPT INPUT=$fil OUTPUT=$OUT SORT_ORDER=coordinate " >> $PARAM
   # These are the conventions used
+  # Remember, I just arbitratily used 'Lib-1' because in a lot of cases we have 1 library/lane and samples are
+  # not split across libraries. However, if you do use multiple libraries for a given sample, you must created
+  # a library ID and add it to the RGLB
   echo -n "RGID=${JOB}-${LANE} RGLB=Lib-1 RGPL=illumina RGPU=${JOB}-${LANE}.${BAR} " >> $PARAM
   # RGCN and RGDS aren't required
+  # Remember that RGSM is how GATK will find which samples are which, so don't screw this up!
   echo "RGSM=${SAMP} RGCN=UT-GSAF RGDS=$NAME > $LOG" >> $PARAM
 done
