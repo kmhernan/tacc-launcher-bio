@@ -3,8 +3,8 @@
 > This is all based on my experience, as there really isn't a consensus on the 'best' methods
 
 ## Necessary tools:
-* [NGSTools](https://github.com/kmhernan/scalaNGS) - Jar included in the tarball `AccessoryScripts.tar.gz`
-* GetHighQualVcfs.py - included in the tarball `AccessoryScripts.tar.gz`
+* [NGSTools](https://github.com/kmhernan/scalaNGS) - Jar included in `/utils/` - *Still need to work on trimming paired reads*
+* GetHighQualVcfs.py - included in `/utils/`
 * [SHRiMP](http://compbio.cs.toronto.edu/shrimp/) - Mapping - *you can use BWA aln if you wish*
 * [Picard](http://picard.sourceforge.net/) - SAM/BAM files - `module load picard`
 * [samtools](http://samtools.sourceforge.net/) - SAM/BAM files - `module load samtools`
