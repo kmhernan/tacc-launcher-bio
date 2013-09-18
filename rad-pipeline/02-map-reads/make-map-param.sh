@@ -54,6 +54,6 @@ done
 #####     @HWI-ST1097:230:C2216ACXX:6:1101:1822:2095 1:N:0:TACGTG
 ##### This is a great place to pull out the barcode and add it to the filename to save a headache down the line
 ##### You can do something like:
-##### BAR=`head -n1 $fil | awk -F":" '{print $NF}'
+##### BAR=`head -n1 $fil | awk -F":" '{print $NF}'`
 ##### to read the barcode from the header line from file $fil into the variable BAR... you can then add it to the
 ##### name of your output sam file.
