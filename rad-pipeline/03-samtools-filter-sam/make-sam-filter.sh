@@ -16,9 +16,20 @@ if [ ! -d $ODIR ]; then mkdir $ODIR; fi
 if [ -e $PARAM ]; then rm $PARAM; fi
 touch $PARAM
 
+# If you want the output to be a bam file use this:
 for fil in ${INDIR}*.sam; do
   BASE=$(basename $fil)
   NAME=${BASE%.*}
   OUT="${ODIR}${NAME}_Q20.bam"
-  echo "samtools -bSh -q 20 $fil > $OUT" >> $PARAM
+  # Note that the -q 20 will filter alignments with mapq less than 20.
+  # Hence, why I add _Q20 to the output file name.
+  echo "samtools view -bSh -q 20 $fil > $OUT" >> $PARAM
 done
+
+# If you want the output to be a sam file use this:
+#for fil in ${INDIR}*.sam; do
+#  BASE=$(basename $fil)
+#  NAME=${BASE%.*}
+#  OUT="${ODIR}${NAME}_Q20.bam"
+#  echo "samtools view -Sh -q 20 $fil > $OUT" >> $PARAM
+#done
