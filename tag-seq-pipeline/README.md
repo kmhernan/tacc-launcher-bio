@@ -69,7 +69,12 @@
 
 ### Phase IV: Counting
 1. Make Counts: `TagSeqTools GMCounts -i <file.bam> -g <file.gff> -o <file.tab> -n <nonoverlapping.tab> [duplicate read choice]`
-2. Combine samples into an expression matrix: `TagSeqTools CountMatrix -i <counts/directory/> -o <output-counts.tab>`
-3. 
+    * No flags, default is to skip all duplicately mapped reads
+    * --primary-alignment  Use only primary-alignments. Requires that the
+    *                            BAM files have such information (e.g., bwa mem -M)
+    * --random-one         Pick a random read.
+    * --split-counts       Distribute counts across all targets evenly.
+    * --flag-dups          Append '_DUP' to PACIDs with duplicate reads.
+2. Combine samples into an expression matrix: `TagSeqTools CountMatrix -i <counts/directory/> -o <output-counts.tab>` 
 
 ### Expression analaysis is your choice and you can use things like DESeq, edgeR, or JMPgenomics
