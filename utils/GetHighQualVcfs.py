@@ -131,15 +131,25 @@ def filter_file(vcf_records, cutoff, args):
             # GQ > the cutoff
             # But we only want to print out samples where GT != 0/0 which means it's the reference
             if args.ploidy == 1:
-                [record.write_sample_row(fil_list[n], i)\
-                    for n,i in enumerate(record.CALLS())\
-                    if ':' in i and int(i.split(':')[3]) > args.GQ\
-                    and i.split(':')[0] != '0']
-            else: 
-                [record.write_sample_row(fil_list[n], i)\
-                    for n,i in enumerate(record.CALLS())\
-                    if ':' in i and int(i.split(':')[3]) > args.GQ\
-                    and i.split(':')[0] != '0/0']
+                for n,i in enumerate(record.CALLS()):
+                    try:
+                        if ':' in i and int(i.split(':')[3]) > args.GQ and i.split(':')[0] != '0':
+                            record.write_sample_row(fil_list[n], i)
+                    except IndexError:
+                        logger.warn(
+                          "Weird genotype record '{0}' at CHROM '{1}' POS '{2}' SAMPLE '{3}'".format(
+                          i, record.CHROM(), record.POS(), record.samples[n]))
+                        pass
+            else:
+                for n,i in enumerate(record.CALLS()):
+                    try:
+                        if ':' in i and int(i.split(':')[3]) > args.GQ and i.split(':')[0] != '0/0':
+                            record.write_sample_row(fil_list[n], i)
+                    except IndexError:
+                        logger.warn(
+                          "Weird genotype record '{0}' at CHROM '{1}' POS '{2}' SAMPLE '{3}'".format(
+                          i, record.CHROM(), record.POS(), record.samples[n]))
+                        pass
     [j.close() for j in fil_list]
 
 def extract_quals(vcf_records, p):
