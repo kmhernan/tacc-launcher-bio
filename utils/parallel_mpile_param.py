@@ -41,6 +41,7 @@ if __name__=='__main__':
     param    = '/scratch/01832/kmhernan/chk_david/par_mpile/mpile_split.param'
     bam_list = '/scratch/01832/kmhernan/chk_david/par_mpile/files.list'
     var_filter_script = '/scratch/01832/kmhernan/chk_david/par_mpile/run_var_filter.sh'
+    logs     = '/scratch/01832/kmhernan/chk_david/par_mpile/logs/'
 
     # Load reference fai
     scaff_list = load_ref()
@@ -67,6 +68,7 @@ if __name__=='__main__':
         o_fai = open(o_int, 'wb')
         o_fai.write('\n'.join([i for i in k if i]) + "\n")
         o_fai.close()
+        o_log = os.path.join(logs, name + ".logs")
 
         o_tmp = os.path.join(out_dir, name)
         if not os.path.isdir(o_tmp):
@@ -75,11 +77,12 @@ if __name__=='__main__':
         tmp_vcf = os.path.join(o_tmp, 'tmp.{}.vcf')
         flt_vcf = os.path.join(o_tmp, 'tmp.{}.flt.vcf')
 
-        o_par.write('vcfutils.pl splitchr -l 1000000 ' + o_int + ' | xargs -I {} -n 1 -P 16 sh -c "samtools mpileup ' + \
+        o_par.write('vcfutils.pl splitchr -l 1000000 ' + o_int + ' | xargs -I {} -n 1 -P 12 sh -c "samtools mpileup ' + \
                     '-m 3 -F 0.0002 -SDuf ' + ref_file + ' -q 10 -r {} -b ' + bam_list + ' | bcftools view ' + \
                     '-bcvg - > ' + tmp_bcf + ' && bcftools view ' + tmp_bcf + ' | vcfutils.pl varFilter -D1000 - > ' + \
-                    tmp_vcf + ' && ' + var_filter_script + ' ' + tmp_vcf + ' ' + flt_vcf + ' ' + ref_file + '"\n')
-
+                    tmp_vcf + ' && ' + var_filter_script + ' ' + tmp_vcf + ' ' + flt_vcf + ' ' + ref_file + \
+                    '" >& ' + o_log + ' && echo "DONE ' + name + '"\n')
+       
         if ct < 122:
             ct += 1
         else:
@@ -93,6 +96,7 @@ if __name__=='__main__':
         o_fai = open(o_int, 'wb')
         o_fai.write('\n'.join([i for i in k if i]) + "\n")
         o_fai.close()
+        o_log = os.path.join(logs, name + ".logs")
 
         o_tmp = os.path.join(out_dir, name)
         if not os.path.isdir(o_tmp):
@@ -101,10 +105,11 @@ if __name__=='__main__':
         tmp_vcf = os.path.join(o_tmp, 'tmp.{}.vcf')
         flt_vcf = os.path.join(o_tmp, 'tmp.{}.flt.vcf')
 
-        o_par.write('vcfutils.pl splitchr -l 1000000 ' + o_int + ' | xargs -I {} -n 1 -P 16 sh -c "samtools mpileup ' + \
+        o_par.write('vcfutils.pl splitchr -l 1000000 ' + o_int + ' | xargs -I {} -n 1 -P 12 sh -c "samtools mpileup ' + \
                     '-m 3 -F 0.0002 -SDuf ' + ref_file + ' -q 10 -r {} -b ' + bam_list + ' | bcftools view ' + \
                     '-bcvg - > ' + tmp_bcf + ' && bcftools view ' + tmp_bcf + ' | vcfutils.pl varFilter -D1000 - > ' + \
-                    tmp_vcf + ' && ' + var_filter_script + ' ' + tmp_vcf + ' ' + flt_vcf + ' ' + ref_file + '"\n')
+                    tmp_vcf + ' && ' + var_filter_script + ' ' + tmp_vcf + ' ' + flt_vcf + ' ' + ref_file + \
+                    '" >& ' + o_log + ' && echo "DONE ' + name + '"\n')
 
         if ct < 122:
             ct += 1
